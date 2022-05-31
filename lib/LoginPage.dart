@@ -1,18 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/main.dart';
+import 'package:logger/HomePage.dart';
 
-import 'LoginPage.dart';
+import 'RegistrationPage.dart';
 
-
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreen();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _SignUpScreen extends State<SignUpScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   bool? isChecked = false;
 
   Widget _buildTextField({
@@ -86,7 +85,7 @@ class _SignUpScreen extends State<SignUpScreen> {
     );
   }
 
-  Widget _buildSignUpButton() {
+  Widget _buildLoginButton() {
     return SizedBox(
       height: 60,
       width: double.infinity,
@@ -105,7 +104,7 @@ class _SignUpScreen extends State<SignUpScreen> {
           ),
         ),
         child: const Text(
-          'Register',
+          'Login',
           style: TextStyle(
             fontFamily: 'PT-Sans',
             fontSize: 16,
@@ -113,7 +112,11 @@ class _SignUpScreen extends State<SignUpScreen> {
             color: Colors.black,
           ),
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => HomePage()));
+        },
       ),
     );
   }
@@ -157,7 +160,7 @@ class _SignUpScreen extends State<SignUpScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Text(
-          'Already have an Account? ',
+          'Don\t have an Account? ',
           style: TextStyle(
             fontFamily: 'PT-Sans',
             fontSize: 16,
@@ -166,7 +169,7 @@ class _SignUpScreen extends State<SignUpScreen> {
         ),
         InkWell(
           child: const Text(
-            'Login',
+            'Sign Up',
             style: TextStyle(
               fontFamily: 'PT-Sans',
               fontSize: 16,
@@ -177,7 +180,7 @@ class _SignUpScreen extends State<SignUpScreen> {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => LoginScreen()),
+              MaterialPageRoute(builder: (context) => SignUpScreen()),
             );
           },
         ),
@@ -213,36 +216,13 @@ class _SignUpScreen extends State<SignUpScreen> {
               child: Column(
                 children: [
                   const Text(
-                    'Sign up',
+                    'Sign in',
                     style: TextStyle(
                       fontFamily: 'PT-Sans',
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: const Text(
-                      'Full Name',
-                      style: TextStyle(
-                        fontFamily: 'PT-Sans',
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  _buildTextField(
-                    hintText: 'Enter your name',
-                    obscureText: false,
-                    prefixedIcon: const Icon(Icons.person, color: Colors.white),
                   ),
                   const SizedBox(
                     height: 30,
@@ -273,52 +253,6 @@ class _SignUpScreen extends State<SignUpScreen> {
                   Container(
                     alignment: Alignment.centerLeft,
                     child: const Text(
-                      'Mobile Number',
-                      style: TextStyle(
-                        fontFamily: 'PT-Sans',
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  _buildTextField(
-                    hintText: 'Enter your Mobile Number',
-                    obscureText: false,
-                    prefixedIcon: const Icon(Icons.phone, color: Colors.white),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: const Text(
-                      'City',
-                      style: TextStyle(
-                        fontFamily: 'PT-Sans',
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  _buildTextField(
-                    hintText: 'Enter your city',
-                    obscureText: false,
-                    prefixedIcon: const Icon(Icons.location_city, color: Colors.white),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: const Text(
                       'Password',
                       style: TextStyle(
                         fontFamily: 'PT-Sans',
@@ -339,15 +273,17 @@ class _SignUpScreen extends State<SignUpScreen> {
                   const SizedBox(
                     height: 15,
                   ),
+                  _buildForgotPasswordButton(),
+                  _buildRemeberMe(),
                   const SizedBox(
                     height: 15,
                   ),
-                  _buildSignUpButton(),
+                  _buildLoginButton(),
                   const SizedBox(
                     height: 20,
                   ),
                   const Text(
-                    'By continuing you agree to our terms and conditions and privacy policy.',
+                    '- OR -',
                     style: TextStyle(
                       fontFamily: 'PT-Sans',
                       fontSize: 16,
@@ -357,6 +293,19 @@ class _SignUpScreen extends State<SignUpScreen> {
                   const SizedBox(
                     height: 15,
                   ),
+                  const Text(
+                    'Sign in with',
+                    style: TextStyle(
+                      fontFamily: 'PT-Sans',
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  _buildSocialButtons(),
                   const SizedBox(
                     height: 30,
                   ),
