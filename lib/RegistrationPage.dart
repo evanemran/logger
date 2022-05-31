@@ -1,9 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/RegistrationPage.dart';
-
-void main() {
-  runApp(MyApp());
-}
+import 'package:logger/main.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -11,20 +8,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: 'Login Screen',
+      title: 'Sign-up Screen',
       home: SignUpScreen(),
     );
   }
 }
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreen();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreen extends State<SignUpScreen> {
   bool? isChecked = false;
 
   Widget _buildTextField({
@@ -98,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildLoginButton() {
+  Widget _buildSignUpButton() {
     return SizedBox(
       height: 60,
       width: double.infinity,
@@ -117,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
         child: const Text(
-          'Login',
+          'Register',
           style: TextStyle(
             fontFamily: 'PT-Sans',
             fontSize: 16,
@@ -125,9 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
             color: Colors.black,
           ),
         ),
-        onPressed: () {
-
-        },
+        onPressed: () {},
       ),
     );
   }
@@ -171,7 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Text(
-          'Don\t have an Account? ',
+          'Already have an Account? ',
           style: TextStyle(
             fontFamily: 'PT-Sans',
             fontSize: 16,
@@ -180,7 +175,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         InkWell(
           child: const Text(
-            'Sign Up',
+            'Login',
             style: TextStyle(
               fontFamily: 'PT-Sans',
               fontSize: 16,
@@ -191,7 +186,7 @@ class _LoginScreenState extends State<LoginScreen> {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => SignUpScreen()),
+              MaterialPageRoute(builder: (context) => LoginScreen()),
             );
           },
         ),
@@ -227,13 +222,36 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 children: [
                   const Text(
-                    'Sign in',
+                    'Sign up',
                     style: TextStyle(
                       fontFamily: 'PT-Sans',
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: const Text(
+                      'Full Name',
+                      style: TextStyle(
+                        fontFamily: 'PT-Sans',
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  _buildTextField(
+                    hintText: 'Enter your name',
+                    obscureText: false,
+                    prefixedIcon: const Icon(Icons.person, color: Colors.white),
                   ),
                   const SizedBox(
                     height: 30,
@@ -264,6 +282,52 @@ class _LoginScreenState extends State<LoginScreen> {
                   Container(
                     alignment: Alignment.centerLeft,
                     child: const Text(
+                      'Mobile Number',
+                      style: TextStyle(
+                        fontFamily: 'PT-Sans',
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  _buildTextField(
+                    hintText: 'Enter your Mobile Number',
+                    obscureText: false,
+                    prefixedIcon: const Icon(Icons.phone, color: Colors.white),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: const Text(
+                      'City',
+                      style: TextStyle(
+                        fontFamily: 'PT-Sans',
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  _buildTextField(
+                    hintText: 'Enter your city',
+                    obscureText: false,
+                    prefixedIcon: const Icon(Icons.location_city, color: Colors.white),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: const Text(
                       'Password',
                       style: TextStyle(
                         fontFamily: 'PT-Sans',
@@ -284,17 +348,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(
                     height: 15,
                   ),
-                  _buildForgotPasswordButton(),
-                  _buildRemeberMe(),
                   const SizedBox(
                     height: 15,
                   ),
-                  _buildLoginButton(),
+                  _buildSignUpButton(),
                   const SizedBox(
                     height: 20,
                   ),
                   const Text(
-                    '- OR -',
+                    'By continuing you agree to our terms and conditions and privacy policy.',
                     style: TextStyle(
                       fontFamily: 'PT-Sans',
                       fontSize: 16,
@@ -304,19 +366,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(
                     height: 15,
                   ),
-                  const Text(
-                    'Sign in with',
-                    style: TextStyle(
-                      fontFamily: 'PT-Sans',
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  _buildSocialButtons(),
                   const SizedBox(
                     height: 30,
                   ),
