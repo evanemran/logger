@@ -360,7 +360,10 @@ class _SignUpScreen extends State<SignUpScreen> {
                   const SizedBox(
                     height: 30,
                   ),
-                  _buildSignUpQuestion()
+                  _buildSignUpQuestion(),
+                  const SizedBox(
+                    height: 15,
+                  ),
                 ],
               ),
             ),
