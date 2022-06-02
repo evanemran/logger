@@ -31,6 +31,7 @@ class SocialButton extends StatelessWidget {
           // fixedSize: MaterialStateProperty.all(const Size(412, 60)),
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Image.asset(
               imagem.toString(),
@@ -39,7 +40,7 @@ class SocialButton extends StatelessWidget {
             const Spacer(),
             Text(
               texto,
-              textAlign: TextAlign.left,
+              textAlign: TextAlign.right,
               style: const TextStyle(
                   color: Colors.black87,
                   fontSize: 17,

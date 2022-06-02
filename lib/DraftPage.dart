@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logger/FurnituresPage.dart';
 import 'package:logger/HomePage.dart';
 
 
@@ -19,10 +20,7 @@ class _BottomBarPageState extends State<BottomBarPage> {
     //   'Index 0: Home',
     //   style: optionStyle,
     // ),
-    Text(
-      'Index 1: Saves',
-      style: optionStyle,
-    ),
+    FoodsPage(),
     Text(
       'Index 2: Cart',
       style: optionStyle,
@@ -42,9 +40,9 @@ class _BottomBarPageState extends State<BottomBarPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('BottomNavigationBar Page'),
-      ),
+      // appBar: AppBar(
+      //   title: const Text('BottomNavigationBar Page'),
+      // ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),

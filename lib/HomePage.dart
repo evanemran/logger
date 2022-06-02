@@ -187,19 +187,6 @@ class _HomePageState extends State<HomePage> {
         body: Container(
           width: double.infinity,
           height: double.infinity,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Color(0xffffffff),
-                Color(0xffffffff),
-                Color(0xffffffff),
-                Color(0xffffffff),
-                Color(0xffffffff),
-              ],
-            ),
-          ),
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(

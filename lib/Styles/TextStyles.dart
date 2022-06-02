@@ -17,3 +17,12 @@ TextStyle homeMenuTextStyle(){
       fontSize: 24.0,
       height: 0.2);
 }
+
+TextStyle menuHeadlineText(){
+  return const TextStyle(
+      color: Colors.black,
+      fontFamily: 'Montserrat',
+      fontWeight: FontWeight.w400,
+      fontSize: 18.0,
+      height: 0.2);
+}
