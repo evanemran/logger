@@ -1,18 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/main.dart';
+import 'package:logger/DraftPage.dart';
+import 'package:logger/HomePage.dart';
+import 'package:logger/LoginPage.dart';
+import 'package:logger/UI/SocialButton.dart';
 
-import 'LoginPage.dart';
+import 'RegistrationPage.dart';
 
+bool _passwordVisible = false;
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+class RegistrationPage extends StatefulWidget {
+  const RegistrationPage({Key? key}) : super(key: key);
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreen();
+  State<RegistrationPage> createState() => _RegistrationPageState();
 }
 
-class _SignUpScreen extends State<SignUpScreen> {
+class _RegistrationPageState extends State<RegistrationPage> {
   bool? isChecked = false;
 
   Widget _buildTextField({
@@ -20,23 +24,79 @@ class _SignUpScreen extends State<SignUpScreen> {
     Widget? prefixedIcon,
     String? hintText,
   }) {
-    return Material(
+    return Card(
       color: Colors.transparent,
-      elevation: 2,
+      elevation: 8,
+      shape: RoundedRectangleBorder(
+        side: const BorderSide(color: Colors.black, width: 2),
+        borderRadius: BorderRadius.circular(10),
+      ),
       child: TextField(
-        cursorColor: Colors.white,
+        cursorColor: Colors.black,
+        keyboardType: TextInputType.emailAddress,
         cursorWidth: 2,
+        enableSuggestions: false,
+        autocorrect: false,
         obscureText: obscureText,
-        style: const TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.black),
         decoration: InputDecoration(
-          border: InputBorder.none,
           filled: true,
-          fillColor: Color(0xFF5180ff),
+          fillColor: Colors.white,
           prefixIcon: prefixedIcon,
           hintText: hintText,
           hintStyle: const TextStyle(
-            color: Colors.white54,
-            fontWeight: FontWeight.bold,
+            color: Colors.black,
+            fontWeight: FontWeight.normal,
+            fontFamily: 'PTSans',
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPasswordField({
+    required bool obscureText,
+    Widget? prefixedIcon,
+    String? hintText,
+  }) {
+    return Card(
+      color: Colors.transparent,
+      elevation: 8,
+      shape: RoundedRectangleBorder(
+        side: const BorderSide(color: Colors.black, width: 2),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: TextField(
+        cursorColor: Colors.black,
+        keyboardType: TextInputType.visiblePassword,
+        cursorWidth: 2,
+        enableSuggestions: false,
+        autocorrect: false,
+        obscureText: !_passwordVisible,
+        style: const TextStyle(color: Colors.black),
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
+          prefixIcon: prefixedIcon,
+          hintText: hintText,
+          suffixIcon: IconButton(
+            icon: Icon(
+              // Based on passwordVisible state choose the icon
+              _passwordVisible
+                  ? Icons.visibility
+                  : Icons.visibility_off,
+              color: Theme.of(context).primaryColorDark,
+            ),
+            onPressed: () {
+              // Update the state i.e. toogle the state of passwordVisible variable
+              setState(() {
+                _passwordVisible = !_passwordVisible;
+              });
+            },
+          ),
+          hintStyle: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.normal,
             fontFamily: 'PTSans',
           ),
         ),
@@ -46,14 +106,14 @@ class _SignUpScreen extends State<SignUpScreen> {
 
   Widget _buildForgotPasswordButton() {
     return Container(
-      alignment: Alignment.centerRight,
+      alignment: Alignment.centerLeft,
       child: TextButton(
         child: const Text(
           'Forgot Password?',
           style: TextStyle(
             fontFamily: 'PT-Sans',
             fontSize: 14,
-            color: Colors.white,
+            color: Colors.blueAccent,
           ),
         ),
         onPressed: () {},
@@ -86,14 +146,13 @@ class _SignUpScreen extends State<SignUpScreen> {
     );
   }
 
-  Widget _buildSignUpButton() {
+  Widget _buildLoginButton() {
     return SizedBox(
-      height: 60,
       width: double.infinity,
       child: ElevatedButton(
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(
-            Colors.white,
+            Colors.black,
           ),
           elevation: MaterialStateProperty.all(6),
           shape: MaterialStateProperty.all(
@@ -104,49 +163,72 @@ class _SignUpScreen extends State<SignUpScreen> {
             ),
           ),
         ),
-        child: const Text(
-          'Register',
-          style: TextStyle(
-            fontFamily: 'PT-Sans',
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
+        child: const Padding(
+          padding: EdgeInsets.all(16),
+          child: Text(
+            'Sign up',
+            style: TextStyle(
+              fontFamily: 'PT-Sans',
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => BottomBarPage()));
+        },
       ),
     );
   }
 
+  Widget _buildSocialImageButtons({
+    required String title,
+    required String image,
+    required Color color
+  }) {
+    return SocialButton(texto: title, imagem: image, cor: color,);
+  }
+
   Widget _buildLogoButton({
     required String image,
+    required String title,
     required VoidCallback onPressed,
   }) {
+
     return FloatingActionButton(
       backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15.0))
+      ),
       onPressed: onPressed,
       child: SizedBox(
-        height: 30,
-        child: Image.asset(image),
+          height: 30,
+          child: Row(
+            children: [
+              Image.asset(image),
+              Text(title)
+            ],
+          )
       ),
     );
   }
 
   Widget _buildSocialButtons() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Column(
+      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _buildLogoButton(
-          image: 'assets/images/google_logo.png',
-          onPressed: () {},
+        _buildSocialImageButtons(
+            title: 'Sign up With Google',
+            image: 'assets/images/google_logo.png',
+            color: Colors.transparent
         ),
-        _buildLogoButton(
-          image: 'assets/images/apple_logo.png',
-          onPressed: () {},
-        ),
-        _buildLogoButton(
-          image: 'assets/images/facebook_logo.png',
-          onPressed: () {},
+        _buildSocialImageButtons(
+            title: 'Sign up With Facebook',
+            image: 'assets/images/facebook_logo.png',
+            color: Colors.transparent
         )
       ],
     );
@@ -154,24 +236,24 @@ class _SignUpScreen extends State<SignUpScreen> {
 
   Widget _buildSignUpQuestion() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         const Text(
           'Already have an Account? ',
           style: TextStyle(
             fontFamily: 'PT-Sans',
             fontSize: 16,
-            color: Colors.white,
+            color: Colors.black,
           ),
         ),
         InkWell(
           child: const Text(
-            'Login',
+            'Log in',
             style: TextStyle(
               fontFamily: 'PT-Sans',
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: Colors.blueAccent,
             ),
           ),
           onTap: () {
@@ -192,19 +274,6 @@ class _SignUpScreen extends State<SignUpScreen> {
         body: Container(
           width: double.infinity,
           height: double.infinity,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Color(0xFF5967ff),
-                Color(0xFF5374ff),
-                Color(0xFF5180ff),
-                Color(0xFF538bff),
-                Color(0xFF5995ff),
-              ],
-            ),
-          ),
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(
@@ -212,13 +281,32 @@ class _SignUpScreen extends State<SignUpScreen> {
               ).copyWith(top: 60),
               child: Column(
                 children: [
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: const Text(
+                      'Create Account ',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontFamily: 'PT-Sans',
+                        fontSize: 26,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  _buildSocialButtons(),
+                  const SizedBox(
+                    height: 30,
+                  ),
                   const Text(
-                    'Sign up',
+                    '- OR -',
                     style: TextStyle(
                       fontFamily: 'PT-Sans',
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      fontSize: 16,
+                      color: Colors.black,
                     ),
                   ),
                   const SizedBox(
@@ -227,12 +315,13 @@ class _SignUpScreen extends State<SignUpScreen> {
                   Container(
                     alignment: Alignment.centerLeft,
                     child: const Text(
-                      'Full Name',
+                      'Name',
+                      textAlign: TextAlign.left,
                       style: TextStyle(
                         fontFamily: 'PT-Sans',
                         fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black,
                       ),
                     ),
                   ),
@@ -240,9 +329,9 @@ class _SignUpScreen extends State<SignUpScreen> {
                     height: 10,
                   ),
                   _buildTextField(
-                    hintText: 'Enter your name',
+                    hintText: 'Enter your Full Name',
                     obscureText: false,
-                    prefixedIcon: const Icon(Icons.person, color: Colors.white),
+                    prefixedIcon: const Icon(Icons.person, color: Colors.black),
                   ),
                   const SizedBox(
                     height: 30,
@@ -251,11 +340,12 @@ class _SignUpScreen extends State<SignUpScreen> {
                     alignment: Alignment.centerLeft,
                     child: const Text(
                       'Email',
+                      textAlign: TextAlign.left,
                       style: TextStyle(
                         fontFamily: 'PT-Sans',
                         fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black,
                       ),
                     ),
                   ),
@@ -265,53 +355,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                   _buildTextField(
                     hintText: 'Enter your email',
                     obscureText: false,
-                    prefixedIcon: const Icon(Icons.mail, color: Colors.white),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: const Text(
-                      'Mobile Number',
-                      style: TextStyle(
-                        fontFamily: 'PT-Sans',
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  _buildTextField(
-                    hintText: 'Enter your Mobile Number',
-                    obscureText: false,
-                    prefixedIcon: const Icon(Icons.phone, color: Colors.white),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: const Text(
-                      'City',
-                      style: TextStyle(
-                        fontFamily: 'PT-Sans',
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  _buildTextField(
-                    hintText: 'Enter your city',
-                    obscureText: false,
-                    prefixedIcon: const Icon(Icons.location_city, color: Colors.white),
+                    prefixedIcon: const Icon(Icons.mail, color: Colors.black),
                   ),
                   const SizedBox(
                     height: 30,
@@ -323,46 +367,35 @@ class _SignUpScreen extends State<SignUpScreen> {
                       style: TextStyle(
                         fontFamily: 'PT-Sans',
                         fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black,
                       ),
                     ),
                   ),
                   const SizedBox(
                     height: 10,
                   ),
-                  _buildTextField(
+                  _buildPasswordField(
                     hintText: 'Enter your password',
                     obscureText: true,
-                    prefixedIcon: const Icon(Icons.lock, color: Colors.white),
+                    prefixedIcon: const Icon(Icons.lock, color: Colors.black),
                   ),
                   const SizedBox(
                     height: 15,
                   ),
+                  // _buildForgotPasswordButton(),
+                  // _buildRemeberMe(),
                   const SizedBox(
                     height: 15,
                   ),
-                  _buildSignUpButton(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Text(
-                    'By continuing you agree to our terms and conditions and privacy policy.',
-                    style: TextStyle(
-                      fontFamily: 'PT-Sans',
-                      fontSize: 16,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
+                  _buildLoginButton(),
+
                   const SizedBox(
                     height: 30,
                   ),
                   _buildSignUpQuestion(),
                   const SizedBox(
-                    height: 15,
+                    height: 30,
                   ),
                 ],
               ),

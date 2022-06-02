@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/DraftPage.dart';
 import 'package:logger/HomePage.dart';
+import 'package:logger/UI/SocialButton.dart';
 
 import 'RegistrationPage.dart';
+
+bool _passwordVisible = false;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -19,23 +23,85 @@ class _LoginScreenState extends State<LoginScreen> {
     Widget? prefixedIcon,
     String? hintText,
   }) {
-    return Material(
+    return Card(
       color: Colors.transparent,
-      elevation: 2,
+      elevation: 8,
+      // shape: const StadiumBorder(
+      //   side: BorderSide(
+      //     color: Colors.black,
+      //     width: 2.0,
+      //   ),
+      // ),
+      shape: RoundedRectangleBorder(
+        side: const BorderSide(color: Colors.black, width: 2),
+        borderRadius: BorderRadius.circular(10),
+      ),
       child: TextField(
-        cursorColor: Colors.white,
+        cursorColor: Colors.black,
+        keyboardType: TextInputType.emailAddress,
         cursorWidth: 2,
+        enableSuggestions: false,
+        autocorrect: false,
         obscureText: obscureText,
-        style: const TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.black),
         decoration: InputDecoration(
-          border: InputBorder.none,
           filled: true,
-          fillColor: Color(0xFF5180ff),
+          fillColor: Colors.white,
           prefixIcon: prefixedIcon,
           hintText: hintText,
           hintStyle: const TextStyle(
-            color: Colors.white54,
-            fontWeight: FontWeight.bold,
+            color: Colors.black,
+            fontWeight: FontWeight.normal,
+            fontFamily: 'PTSans',
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPasswordField({
+    required bool obscureText,
+    Widget? prefixedIcon,
+    String? hintText,
+  }) {
+    return Card(
+      color: Colors.transparent,
+      elevation: 8,
+      shape: RoundedRectangleBorder(
+        side: const BorderSide(color: Colors.black, width: 2),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: TextField(
+        cursorColor: Colors.black,
+        keyboardType: TextInputType.visiblePassword,
+        cursorWidth: 2,
+        enableSuggestions: false,
+        autocorrect: false,
+        obscureText: !_passwordVisible,
+        style: const TextStyle(color: Colors.black),
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
+          prefixIcon: prefixedIcon,
+          hintText: hintText,
+          suffixIcon: IconButton(
+            icon: Icon(
+              // Based on passwordVisible state choose the icon
+              _passwordVisible
+                  ? Icons.visibility
+                  : Icons.visibility_off,
+              color: Theme.of(context).primaryColorDark,
+            ),
+            onPressed: () {
+              // Update the state i.e. toogle the state of passwordVisible variable
+              setState(() {
+                _passwordVisible = !_passwordVisible;
+              });
+            },
+          ),
+          hintStyle: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.normal,
             fontFamily: 'PTSans',
           ),
         ),
@@ -45,14 +111,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _buildForgotPasswordButton() {
     return Container(
-      alignment: Alignment.centerRight,
+      alignment: Alignment.centerLeft,
       child: TextButton(
         child: const Text(
           'Forgot Password?',
           style: TextStyle(
             fontFamily: 'PT-Sans',
             fontSize: 14,
-            color: Colors.white,
+            color: Colors.blueAccent,
           ),
         ),
         onPressed: () {},
@@ -87,12 +153,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _buildLoginButton() {
     return SizedBox(
-      height: 60,
       width: double.infinity,
       child: ElevatedButton(
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(
-            Colors.white,
+            Colors.black,
           ),
           elevation: MaterialStateProperty.all(6),
           shape: MaterialStateProperty.all(
@@ -103,53 +168,73 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
-        child: const Text(
-          'Login',
-          style: TextStyle(
-            fontFamily: 'PT-Sans',
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
+        child: const Padding(
+          padding: EdgeInsets.all(16),
+          child: Text(
+            'Sign in',
+            style: TextStyle(
+              fontFamily: 'PT-Sans',
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
         ),
         onPressed: () {
           Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => HomePage()));
+              MaterialPageRoute(builder: (context) => BottomBarPage()));
         },
       ),
     );
   }
 
+  Widget _buildSocialImageButtons({
+    required String title,
+    required String image,
+    required Color color
+  }) {
+    return SocialButton(texto: title, imagem: image, cor: color,);
+  }
+
   Widget _buildLogoButton({
     required String image,
+    required String title,
     required VoidCallback onPressed,
   }) {
+
     return FloatingActionButton(
       backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15.0))
+      ),
       onPressed: onPressed,
       child: SizedBox(
         height: 30,
-        child: Image.asset(image),
+        child: Row(
+          children: [
+            Image.asset(image),
+            Text(title)
+          ],
+        )
       ),
     );
   }
 
   Widget _buildSocialButtons() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Column(
+      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _buildLogoButton(
+        _buildSocialImageButtons(
+          title: 'Sign in With Google',
           image: 'assets/images/google_logo.png',
-          onPressed: () {},
+          color: Colors.transparent
         ),
-        _buildLogoButton(
-          image: 'assets/images/apple_logo.png',
-          onPressed: () {},
-        ),
-        _buildLogoButton(
-          image: 'assets/images/facebook_logo.png',
-          onPressed: () {},
+        _buildSocialImageButtons(
+            title: 'Sign in'
+                ' With Facebook',
+            image: 'assets/images/facebook_logo.png',
+            color: Colors.transparent
         )
       ],
     );
@@ -157,14 +242,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _buildSignUpQuestion() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         const Text(
           'Don\t have an Account? ',
           style: TextStyle(
             fontFamily: 'PT-Sans',
             fontSize: 16,
-            color: Colors.white,
+            color: Colors.black,
           ),
         ),
         InkWell(
@@ -174,13 +259,13 @@ class _LoginScreenState extends State<LoginScreen> {
               fontFamily: 'PT-Sans',
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: Colors.blueAccent,
             ),
           ),
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => SignUpScreen()),
+              MaterialPageRoute(builder: (context) => RegistrationPage()),
             );
           },
         ),
@@ -195,19 +280,6 @@ class _LoginScreenState extends State<LoginScreen> {
         body: Container(
           width: double.infinity,
           height: double.infinity,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Color(0xFF5967ff),
-                Color(0xFF5374ff),
-                Color(0xFF5180ff),
-                Color(0xFF538bff),
-                Color(0xFF5995ff),
-              ],
-            ),
-          ),
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(
@@ -215,13 +287,32 @@ class _LoginScreenState extends State<LoginScreen> {
               ).copyWith(top: 60),
               child: Column(
                 children: [
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: const Text(
+                      'Sign in',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontFamily: 'PT-Sans',
+                        fontSize: 26,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  _buildSocialButtons(),
+                  const SizedBox(
+                    height: 30,
+                  ),
                   const Text(
-                    'Sign in',
+                    '- OR -',
                     style: TextStyle(
                       fontFamily: 'PT-Sans',
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      fontSize: 16,
+                      color: Colors.black,
                     ),
                   ),
                   const SizedBox(
@@ -231,11 +322,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     alignment: Alignment.centerLeft,
                     child: const Text(
                       'Email',
+                      textAlign: TextAlign.left,
                       style: TextStyle(
                         fontFamily: 'PT-Sans',
                         fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black,
                       ),
                     ),
                   ),
@@ -245,7 +337,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   _buildTextField(
                     hintText: 'Enter your email',
                     obscureText: false,
-                    prefixedIcon: const Icon(Icons.mail, color: Colors.white),
+                    prefixedIcon: const Icon(Icons.mail, color: Colors.black),
                   ),
                   const SizedBox(
                     height: 30,
@@ -257,55 +349,29 @@ class _LoginScreenState extends State<LoginScreen> {
                       style: TextStyle(
                         fontFamily: 'PT-Sans',
                         fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black,
                       ),
                     ),
                   ),
                   const SizedBox(
                     height: 10,
                   ),
-                  _buildTextField(
+                  _buildPasswordField(
                     hintText: 'Enter your password',
                     obscureText: true,
-                    prefixedIcon: const Icon(Icons.lock, color: Colors.white),
+                    prefixedIcon: const Icon(Icons.lock, color: Colors.black),
                   ),
                   const SizedBox(
                     height: 15,
                   ),
                   _buildForgotPasswordButton(),
-                  _buildRemeberMe(),
+                  // _buildRemeberMe(),
                   const SizedBox(
                     height: 15,
                   ),
                   _buildLoginButton(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Text(
-                    '- OR -',
-                    style: TextStyle(
-                      fontFamily: 'PT-Sans',
-                      fontSize: 16,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  const Text(
-                    'Sign in with',
-                    style: TextStyle(
-                      fontFamily: 'PT-Sans',
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  _buildSocialButtons(),
+
                   const SizedBox(
                     height: 30,
                   ),

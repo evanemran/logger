@@ -9,7 +9,6 @@ TextStyle bannerTextStyle(){
       fontSize: 34.0,
       height: 0.5);
 }
-
 TextStyle homeMenuTextStyle(){
   return const TextStyle(
       color: ThemeColors.bannerTextColor,

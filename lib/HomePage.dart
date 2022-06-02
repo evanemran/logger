@@ -58,45 +58,45 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildHorizontalMenu(BuildContext context, List<ExploreMenu> menuList){
-    return ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: menuList.length,
-      padding: EdgeInsets.all(8),
-      itemBuilder: (context, index) {
-        return Card(
-            elevation: 8,
-            color: Colors.white,
-            child: InkWell(
-              onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => ),
-                // );
-              },
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children:<Widget>[
-                    Container(
-                      decoration:BoxDecoration(
-                          borderRadius:BorderRadius.circular(10),
-                          color:Colors.transparent
-                      ),
-                      child: IconButton(
-                        icon: Image.asset('assets/images/food.png'),
-                        iconSize: 50,
-                        onPressed: () {},
-                      ),
-                    ),
-                    Text("Menu")
-                  ]
-              ),
-            )
-        );
-
-      },
-    );
-  }
+  // Widget _buildHorizontalMenu(BuildContext context, List<ExploreMenu> menuList){
+  //   return ListView.builder(
+  //     scrollDirection: Axis.horizontal,
+  //     itemCount: menuList.length,
+  //     padding: EdgeInsets.all(8),
+  //     itemBuilder: (context, index) {
+  //       return Card(
+  //           elevation: 8,
+  //           color: Colors.white,
+  //           child: InkWell(
+  //             onTap: () {
+  //               // Navigator.push(
+  //               //   context,
+  //               //   MaterialPageRoute(builder: (context) => ),
+  //               // );
+  //             },
+  //             child: Column(
+  //                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+  //                 children:<Widget>[
+  //                   Container(
+  //                     decoration:BoxDecoration(
+  //                         borderRadius:BorderRadius.circular(10),
+  //                         color:Colors.transparent
+  //                     ),
+  //                     child: IconButton(
+  //                       icon: Image.asset('assets/images/food.png'),
+  //                       iconSize: 50,
+  //                       onPressed: () {},
+  //                     ),
+  //                   ),
+  //                   Text("Menu")
+  //                 ]
+  //             ),
+  //           )
+  //       );
+  //
+  //     },
+  //   );
+  // }
 
   final List<String> imgList = [
     'https://static.toiimg.com/thumb/82085026.cms?resizemode=4&width=1200',
@@ -168,7 +168,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
 
-        _buildHorizontalMenu(context, exploreMenuList)
+        // _buildHorizontalMenu(context, exploreMenuList)
 
       ],
     );
@@ -179,11 +179,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: Text("Home Page"),
-        ),
+        // appBar: AppBar(
+        //   // Here we take the value from the MyHomePage object that was created by
+        //   // the App.build method, and use it to set our appbar title.
+        //   title: Text("Home Page"),
+        // ),
         body: Container(
           width: double.infinity,
           height: double.infinity,
