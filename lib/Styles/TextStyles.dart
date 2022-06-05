@@ -26,3 +26,21 @@ TextStyle menuHeadlineText(){
       fontSize: 18.0,
       height: 0.2);
 }
+
+TextStyle gridItemName(){
+  return const TextStyle(
+      color: Colors.black,
+      fontFamily: 'Montserrat',
+      fontWeight: FontWeight.w400,
+      fontSize: 18.0,
+      height: 0.2);
+}
+
+TextStyle gridItemPrice(){
+  return const TextStyle(
+      color: Colors.black,
+      fontFamily: 'Montserrat',
+      fontWeight: FontWeight.w600,
+      fontSize: 22.0,
+      height: 0.2);
+}

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:logger/FurnituresPage.dart';
+import 'package:logger/FoodsPage.dart';
 import 'package:logger/HomePage.dart';
 
 
