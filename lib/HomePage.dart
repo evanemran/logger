@@ -7,7 +7,8 @@ import 'package:logger/Styles/TextStyles.dart';
 import 'RegistrationPage.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key, this.title}) : super(key: key);
+  final title;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -177,14 +178,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        // appBar: AppBar(
-        //   // Here we take the value from the MyHomePage object that was created by
-        //   // the App.build method, and use it to set our appbar title.
-        //   title: Text("Home Page"),
-        // ),
-        body: Container(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+        backgroundColor: Colors.black,
+      ),
+      body: SafeArea(
+        child: Container(
           width: double.infinity,
           height: double.infinity,
           child: SingleChildScrollView(

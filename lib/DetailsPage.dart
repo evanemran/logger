@@ -11,67 +11,6 @@ class DetailsPage extends StatefulWidget{
   State<DetailsPage> createState() => _DetailPageState();
 }
 
-/*Widget buildCounter() {
-  // return SizedBox(
-  //   width: 110.0,
-  //   height: 44.0,
-  //   child: Center(
-  //     child: Container(
-  //       decoration: BoxDecoration(
-  //           color: Color(0xddFFFFFF),
-  //           border: Border.all(color: Colors.black, width: 1.0),
-  //           borderRadius: BorderRadius.circular(22.0)),
-  //       child: Row(
-  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //         children: <Widget>[
-  //           GestureDetector(
-  //               onTap: () {
-  //                 updateCount(-1);
-  //               },
-  //               child: Container(
-  //                   width: 40.0,
-  //                   child: Center(
-  //                       child: Text(
-  //                         '-',
-  //                         style: TextStyle(
-  //                             fontSize: 25.0,
-  //                             fontWeight: FontWeight.bold,
-  //                             color: Colors.orange,
-  //                             decoration: TextDecoration.none),
-  //                       )))),
-  //           Container(
-  //             child: Center(
-  //                 child: Text(
-  //                   '$count',
-  //                   style: TextStyle(
-  //                       fontSize: 20.0,
-  //                       fontWeight: FontWeight.bold,
-  //                       color: Colors.orange,
-  //                       decoration: TextDecoration.none),
-  //                 )),
-  //           ),
-  //           GestureDetector(
-  //               onTap: () {
-  //                 updateCount(1);
-  //               },
-  //               child: Container(
-  //                   width: 40.0,
-  //                   child: Center(
-  //                       child: Text(
-  //                         '+',
-  //                         style: TextStyle(
-  //                             fontSize: 25.0,
-  //                             fontWeight: FontWeight.bold,
-  //                             color: Colors.orange,
-  //                             decoration: TextDecoration.none),
-  //                       )))),
-  //         ],
-  //       ),
-  //     ),
-  //   ),
-  // );
-}*/
-
 Widget buildOfferList() {
   List<String> offers = [];
   offers.add("Comes with extra cheese");
@@ -133,7 +72,7 @@ Widget buildAddToFavoriteButton(BuildContext context){
     child: ElevatedButton(
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(
-          Colors.white70,
+          Colors.white54,
         ),
         elevation: MaterialStateProperty.all(6),
         shape: MaterialStateProperty.all(
@@ -193,10 +132,14 @@ class _DetailPageState extends State<DetailsPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+          appBar: AppBar(
+            title: Text(widget.title),
+            backgroundColor: Colors.black,
+          ),
         body: Container(
           width: double.infinity,
           height: double.infinity,
-          child: SingleChildScrollView(
+          child: Container(
             child: Padding(
               padding: EdgeInsets.all(8.0),
               child: Column(
@@ -214,128 +157,139 @@ class _DetailPageState extends State<DetailsPage> {
                       Text("Back")
                     ],
                   ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: Image.asset(
-                      'assets/images/foodh.jpg',
-                      height: 200,
-                      // fit: BoxFit.fitHeight,
-                    ),
-                  ),
-                  Text(widget.title, style: homeMenuTextStyle()),
-                  Text("Khanas", style: menuHeadlineText()),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          '350 \$',
-                          style: gridItemPrice(),
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
-                      // buildCounter(),
-                      SizedBox(
-                        width: 110.0,
-                        height: 44.0,
-                        child: Center(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              // color: Color(0xddFFFFFF),
-                                border: Border.all(color: Colors.white, width: 1.0),
-                                borderRadius: BorderRadius.circular(22.0)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                GestureDetector(
-                                    onTap: () {
-                                      updateCount(-1);
-                                    },
-                                    child: Container(
-                                        width: 40.0,
-                                        child: Card(
-                                            color: Colors.grey,
-                                            child: Center(
-                                                child: Text(
-                                                  '-',
-                                                  style: TextStyle(
-                                                      fontSize: 25.0,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: Colors.black,
-                                                      decoration: TextDecoration.none),
-                                                )
-                                            )
-                                        ))),
-                                Container(
-                                  child: Center(
-                                      child: Text(
-                                        '$count',
-                                        style: TextStyle(
-                                            fontSize: 20.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black,
-                                            decoration: TextDecoration.none),
-                                      )),
-                                ),
-                                GestureDetector(
-                                    onTap: () {
-                                      updateCount(1);
-                                    },
-                                    child: Container(
-                                        width: 40.0,
-                                        child: Card(
-                                            color: Colors.grey,
-                                            child: Center(
-                                                child: Text(
-                                                  '+',
-                                                  style: TextStyle(
-                                                      fontSize: 25.0,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: Colors.black,
-                                                      decoration: TextDecoration.none),
-                                                )
-                                            )
-                                        ))),
-                              ],
-                            ),
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Image.asset(
+                            'assets/images/foodh.jpg',
+                            height: 200,
+                            // fit: BoxFit.fitHeight,
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    children: [
-                      Icon(Icons.star, color: Colors.black,),
-                      const SizedBox(
-                        width: 30,
-                      ),
-                      Text("4.5", style: gridItemName(),),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text("(50 Reviews)", style: menuHeadlineText(),),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,",
-                    style: gridItemName(),
+                        Text(widget.title, style: homeMenuTextStyle()),
+                        Text("Khanas", style: menuHeadlineText()),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                '350 \$',
+                                style: gridItemPrice(),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                            // buildCounter(),
+                            SizedBox(
+                              width: 110.0,
+                              height: 44.0,
+                              child: Center(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    // color: Color(0xddFFFFFF),
+                                      border: Border.all(color: Colors.white, width: 1.0),
+                                      borderRadius: BorderRadius.circular(22.0)),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      GestureDetector(
+                                          onTap: () {
+                                            updateCount(-1);
+                                          },
+                                          child: Container(
+                                              width: 40.0,
+                                              child: Card(
+                                                  color: Colors.white54,
+                                                  child: Center(
+                                                      child: Text(
+                                                        '-',
+                                                        style: TextStyle(
+                                                            fontSize: 25.0,
+                                                            fontWeight: FontWeight.bold,
+                                                            color: Colors.black,
+                                                            decoration: TextDecoration.none),
+                                                      )
+                                                  )
+                                              ))),
+                                      Container(
+                                        child: Center(
+                                            child: Text(
+                                              '$count',
+                                              style: TextStyle(
+                                                  fontSize: 20.0,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black,
+                                                  decoration: TextDecoration.none),
+                                            )),
+                                      ),
+                                      GestureDetector(
+                                          onTap: () {
+                                            updateCount(1);
+                                          },
+                                          child: Container(
+                                              width: 40.0,
+                                              child: Card(
+                                                  color: Colors.white54,
+                                                  child: Center(
+                                                      child: Text(
+                                                        '+',
+                                                        style: TextStyle(
+                                                            fontSize: 25.0,
+                                                            fontWeight: FontWeight.bold,
+                                                            color: Colors.black,
+                                                            decoration: TextDecoration.none),
+                                                      )
+                                                  )
+                                              ))),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        Row(
+                          children: [
+                            Icon(Icons.star, color: Colors.black,),
+                            const SizedBox(
+                              width: 30,
+                            ),
+                            Text("4.5", style: gridItemName(),),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text("(50 Reviews)", style: menuHeadlineText(),),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,",
+                          style: gridItemName(),
+                        ),
+                      ],
+                    ),
                   ),
                   // buildOfferList(),
-                  Row(
-                    children: [
-                      Padding(padding: EdgeInsets.all(8), child: buildAddToFavoriteButton(context),),
-                      Expanded(child: buildAddToCartButton(context))
-                    ],
-                  )
+                  Expanded(
+                    child: Align(
+                      alignment: FractionalOffset.bottomCenter,
+                      child: Row(
+                        children: [
+                          Padding(padding: EdgeInsets.all(8), child: buildAddToFavoriteButton(context),),
+                          Expanded(child: buildAddToCartButton(context))
+                        ],
+                      )
+                    ),
+                  ),
                 ],
               ),
             ),

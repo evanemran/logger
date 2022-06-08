@@ -1,11 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/DetailsPage.dart';
+import 'package:logger/Models/CartItems.dart';
 import 'package:logger/Styles/TextStyles.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
+import 'globals.dart' as globals;
+
 class FoodsPage extends StatefulWidget {
-  const FoodsPage({Key? key}) : super(key: key);
+  const FoodsPage({Key? key, this.title}) : super(key: key);
+
+  final title;
 
   @override
   State<FoodsPage> createState() => _FoodsPageState();
@@ -51,6 +57,7 @@ class _FoodsPageState extends State<FoodsPage> {
                   color: Colors.white,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                      elevation: 8,
                       primary: Colors.white,
                     ),
                     onPressed: () {},
@@ -66,6 +73,7 @@ class _FoodsPageState extends State<FoodsPage> {
                   color: Colors.white,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                      elevation: 8,
                       primary: Colors.white,
                     ),
                     onPressed: () {},
@@ -81,6 +89,7 @@ class _FoodsPageState extends State<FoodsPage> {
                   color: Colors.white,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                      elevation: 8,
                       primary: Colors.white,
                     ),
                     onPressed: () {},
@@ -96,6 +105,7 @@ class _FoodsPageState extends State<FoodsPage> {
                   color: Colors.white,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                      elevation: 8,
                       primary: Colors.white,
                     ),
                     onPressed: () {},
@@ -111,6 +121,7 @@ class _FoodsPageState extends State<FoodsPage> {
                   color: Colors.white,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                      elevation: 8,
                       primary: Colors.white,
                     ),
                     onPressed: () {},
@@ -126,6 +137,7 @@ class _FoodsPageState extends State<FoodsPage> {
                   color: Colors.white,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                      elevation: 8,
                       primary: Colors.white,
                     ),
                     onPressed: () {},
@@ -141,6 +153,7 @@ class _FoodsPageState extends State<FoodsPage> {
                   color: Colors.white,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                      elevation: 8,
                       primary: Colors.white,
                     ),
                     onPressed: () {},
@@ -170,7 +183,7 @@ class _FoodsPageState extends State<FoodsPage> {
       crossAxisCount: 2,
           childAspectRatio: (itemWidth / itemHeight),
       // Generate 100 widgets that display their index in the List.
-      children: List.generate(100, (index) {
+      children: List.generate(40, (index) {
         return Card(
           elevation: 8,
           child: InkWell(
@@ -219,7 +232,8 @@ class _FoodsPageState extends State<FoodsPage> {
                             icon: const Icon(Icons.shopping_cart),
                             color: Colors.black,
                             onPressed: () {
-
+                              globals.cartProducts.add(CartItems("Appetizer $index", 350));
+                              showToast("added to cart!");
                             },
                           )
                         ],
@@ -319,28 +333,27 @@ class _FoodsPageState extends State<FoodsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          // appBar: AppBar(
-          //   // Here we take the value from the MyHomePage object that was created by
-          //   // the App.build method, and use it to set our appbar title.
-          //   title: Text("Home Page"),
-          // ),
-          body: Padding(
-        padding: const EdgeInsets.all(20),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+        backgroundColor: Colors.black,
+      ),
+      body: SafeArea(
+          child: Padding(
+        padding: const EdgeInsets.all(8),
         child: SizedBox(
           width: double.infinity,
           height: double.infinity,
           child: Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 10,
-            ).copyWith(top: 60),
+            ).copyWith(top: 20),
             child: Column(
               children: [
                 _buildTextBanner(title: 'Foods'),
                 // _createSearchView(),
                 const SizedBox(
-                  height: 30,
+                  height: 20,
                 ),
                 _buildMenuHeadline(title: 'Categories'),
                 const SizedBox(
@@ -348,7 +361,7 @@ class _FoodsPageState extends State<FoodsPage> {
                 ),
                 _buildHorizontalList(),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 // _createSearchView(),
                 // buildFloatingSearchBar(),
@@ -365,5 +378,10 @@ class _FoodsPageState extends State<FoodsPage> {
         ),
       )),
     );
+  }
+  Future showToast(String message) async {
+    await Fluttertoast.cancel();
+
+    Fluttertoast.showToast(msg: message, fontSize: 18);
   }
 }
