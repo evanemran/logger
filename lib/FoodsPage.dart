@@ -155,7 +155,7 @@ class _FoodsPageState extends State<FoodsPage> {
 
   Widget _buildGridList() {
     var size = MediaQuery.of(context).size;
-    final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
+    final double itemHeight = (size.height/* - kToolbarHeight - 24*/) / 2;
     final double itemWidth = size.width / 2;
     return Expanded(
         child: GridView.count(
@@ -172,45 +172,57 @@ class _FoodsPageState extends State<FoodsPage> {
       children: List.generate(100, (index) {
         return Card(
           elevation: 8,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Image.asset(
-                'assets/images/food_demo.jpeg',
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Appetizer One',
-                    style: gridItemName(),
-                    textAlign: TextAlign.left,),
-
-                    const SizedBox(
-                      height: 30,
-                    ),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          '350 \$',
-                          style: gridItemPrice(),
-                          textAlign: TextAlign.left,
-                        ),
-                        // IconButton(
-                        //   icon: const Icon(Icons.shopping_cart),
-                        //   color: Colors.black,
-                        //   onPressed: () {},
-                        // )
-                      ],
-                    )
-                  ],
+          child: InkWell(
+            onTap: () {
+              
+            },
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Image.asset(
+                  'assets/images/food_demo.jpeg',
                 ),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text('Appetizer $index',
+                        style: gridItemName(),
+                        textAlign: TextAlign.left,),
+
+                      const SizedBox(
+                        height: 10,
+                      ),
+
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              '350 \$',
+                              style: gridItemPrice(),
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.shopping_cart),
+                            color: Colors.black,
+                            onPressed: () {
+
+                            },
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       }),
@@ -236,13 +248,14 @@ class _FoodsPageState extends State<FoodsPage> {
   }
 
   Widget _createSearchView() {
-    return new Container(
-      decoration: BoxDecoration(border: Border.all(width: 1.0)),
-      child: new TextField(
+    return Container(
+      decoration: BoxDecoration(border: Border.all(width: 1.0),
+      ),
+      child: const TextField(
         // controller: _searchview,
         decoration: InputDecoration(
           hintText: "Search",
-          hintStyle: new TextStyle(color: Colors.black),
+          hintStyle: TextStyle(color: Colors.black),
         ),
         textAlign: TextAlign.center,
       ),
@@ -319,6 +332,7 @@ class _FoodsPageState extends State<FoodsPage> {
             child: Column(
               children: [
                 _buildTextBanner(title: 'Foods'),
+                // _createSearchView(),
                 const SizedBox(
                   height: 30,
                 ),
