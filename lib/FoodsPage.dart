@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/DetailsPage.dart';
 import 'package:logger/Styles/TextStyles.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
@@ -155,7 +156,7 @@ class _FoodsPageState extends State<FoodsPage> {
 
   Widget _buildGridList() {
     var size = MediaQuery.of(context).size;
-    final double itemHeight = (size.height/* - kToolbarHeight - 24*/) / 2;
+    final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
     final double itemWidth = size.width / 2;
     return Expanded(
         child: GridView.count(
@@ -174,13 +175,18 @@ class _FoodsPageState extends State<FoodsPage> {
           elevation: 8,
           child: InkWell(
             onTap: () {
-              
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => DetailsPage(title: "Appetizer $index", initialCount: 0,)),
+              );
             },
             child: Column(
               // mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Image.asset(
-                  'assets/images/food_demo.jpeg',
+                  'assets/images/foodh.jpg',
+                  height: 150,
+                  fit: BoxFit.fitHeight,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
